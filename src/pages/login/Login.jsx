@@ -3,8 +3,53 @@ import logo from "../../assets/images/logo.png";
 
 import { FaEnvelope, FaLock } from "react-icons/fa";
 
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { login } from "../../services/authService";
+import { useEffect } from "react";
+
+
 function Login() {
+
+    const navigate = useNavigate();
+
+    const [username, setUsername] = useState("");
+
+    const [password, setPassword] = useState("");
+
+    const [loading, setLoading] = useState(false);
+
+    const handleLogin = async (e) => {
+
+        e.preventDefault();
+
+        setLoading(true);
+
+        try {
+
+            const token = await login(username, password);
+
+            localStorage.setItem("token", token);
+
+            navigate("/dashboard");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Invalid Username or Password");
+
+        } finally {
+
+            setLoading(false);
+
+        }
+
+    };
+
     return (
+
         <div className="login-page">
 
             <div className="login-card">
@@ -27,14 +72,17 @@ function Login() {
 
                     </h5>
 
-                    <form>
+                    <form onSubmit={handleLogin}>
 
                         <div className="input-group mb-3">
 
                             <input
-                                type="email"
+                                type="text"
                                 className="form-control"
-                                placeholder="Email Address"
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
                             />
 
                             <span className="input-group-text">
@@ -51,6 +99,9 @@ function Login() {
                                 type="password"
                                 className="form-control"
                                 placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
                             />
 
                             <span className="input-group-text">
@@ -85,9 +136,10 @@ function Login() {
                         <button
                             type="submit"
                             className="btn btn-primary w-100 login-btn"
+                            disabled={loading}
                         >
 
-                            Sign In
+                            {loading ? "Signing In..." : "Sign In"}
 
                         </button>
 
@@ -98,7 +150,9 @@ function Login() {
             </div>
 
         </div>
+
     );
+
 }
 
 export default Login;

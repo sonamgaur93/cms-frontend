@@ -159,3 +159,32 @@ body{
     border-top:1px solid #ddd;
 
 }
+
+.logout-btn {
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    background: #dc3545;
+    color: white;
+
+    border: none;
+
+    padding: 8px 14px;
+
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    transition: 0.3s;
+
+}
+
+.logout-btn:hover {
+
+    background: #bb2d3b;
+
+}
