@@ -4,6 +4,13 @@ import Login from "../pages/login/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
 import CollegeList from "../pages/college/CollegeList";
 import AddCollege from "../pages/college/AddCollege";
+import CollegeDetail from "../pages/college/CollegeDetails";
+
+
+import CourseList from "../pages/course/CourseList";
+import AddCourse from "../pages/course/AddCourse";
+import CourseDetail from "../pages/course/CourseDetail";
+import EditCourse from "../pages/course/EditCourse";
 
 import ProtectedRoute from "./ProtectedRoute";
 import Layout from "../components/Layout/Layout";
@@ -47,6 +54,62 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+
+      <Route
+         path="/colleges/view/:id"
+         element={
+        <ProtectedRoute>
+            <Layout>
+                <CollegeDetail />
+            </Layout>
+        </ProtectedRoute>
+        }
+      />
+
+      <Route
+    path="/courses"
+    element={
+        <ProtectedRoute>
+            <Layout>
+                <CourseList />
+            </Layout>
+        </ProtectedRoute>
+    }
+/>
+
+<Route
+    path="/courses/add"
+    element={
+        <ProtectedRoute>
+            <Layout>
+                <AddCourse />
+            </Layout>
+        </ProtectedRoute>
+    }
+/>
+
+<Route
+    path="/courses/view/:id"
+    element={
+        <ProtectedRoute>
+            <Layout>
+                <CourseDetail />
+            </Layout>
+        </ProtectedRoute>
+    }
+/>
+
+<Route
+    path="/courses/edit/:id"
+    element={
+        <ProtectedRoute>
+            <Layout>
+                <EditCourse />
+            </Layout>
+        </ProtectedRoute>
+    }
+/>
+
 
         <Route path="*" element={<h2>404 Page Not Found</h2>} />
 
