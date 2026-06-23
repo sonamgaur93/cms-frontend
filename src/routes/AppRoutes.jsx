@@ -5,6 +5,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import CollegeList from "../pages/college/CollegeList";
 import AddCollege from "../pages/college/AddCollege";
 import CollegeDetail from "../pages/college/CollegeDetails";
+import EditCollege from "../pages/college/EditCollege";
 
 
 import CourseList from "../pages/course/CourseList";
@@ -54,6 +55,19 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
+        
+        <Route
+    path="/colleges/edit/:id"
+    element={
+        <ProtectedRoute>
+            <Layout>
+                <EditCollege />
+            </Layout>
+        </ProtectedRoute>
+    }
+/>
+
+
 
       <Route
          path="/colleges/view/:id"

@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
-    getAllColleges
-    // deleteCollege
+    getAllColleges,
+    deleteCollege
 } from "../../services/collegeService";
 
 import "./CollegeList.css";
@@ -58,6 +58,32 @@ function CollegeList() {
         }
 
     };
+
+    const handleDelete = async (id) => {
+
+    const confirmDelete = window.confirm(
+        "Are you sure you want to delete this college?"
+    );
+
+    if (!confirmDelete) return;
+
+    try {
+
+        await deleteCollege(id);
+
+        alert("College deleted successfully.");
+
+        loadColleges();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Unable to delete college.");
+
+    }
+
+};
 
     return (
 
@@ -189,19 +215,23 @@ function CollegeList() {
                                         </button>
 
                                         <button
-                                            className="btn btn-danger btn-sm"
-                                            onClick={() => {
+    className="btn btn-danger btn-sm"
+    onClick={() => {
 
-                                                if (college.id) {
-                                                    alert("Delete API will be called here.");
-                                                } else {
-                                                    alert("Backend is not returning id.");
-                                                }
+        if (college.id) {
 
-                                            }}
-                                        >
-                                            Delete
-                                        </button>
+            handleDelete(college.id);
+
+        } else {
+
+            alert("Backend is not returning id.");
+
+        }
+
+    }}
+>
+    Delete
+</button>
 
                                     </td>
 

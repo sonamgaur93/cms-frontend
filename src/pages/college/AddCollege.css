@@ -1,74 +1,97 @@
 .add-college-page {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f4f6f9;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f4f6f9;
 }
 
 .add-college-card {
-  width: 450px;
-  background: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 450px;
+    background: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .add-college-card h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
 }
 
 .add-college-card form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
-.add-college-card input {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  outline: none;
-  box-sizing: border-box;
+/* Input and Select */
+.add-college-card input,
+.add-college-card select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+    box-sizing: border-box;
+    font-size: 15px;
+    background: #fff;
+}
+
+/* Focus Effect */
+.add-college-card input:focus,
+.add-college-card select:focus {
+    border-color: #4a6cf7;
+    box-shadow: 0 0 5px rgba(74, 108, 247, 0.3);
+}
+
+/* Disabled dropdown */
+.add-college-card select:disabled {
+    background: #f2f2f2;
+    color: #999;
+    cursor: not-allowed;
 }
 
 .add-college-card .row {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
 }
 
-.add-college-card .row input {
-  flex: 1;
+.add-college-card .row input,
+.add-college-card .row select {
+    flex: 1;
 }
 
 .add-college-card button {
-  width: 100%;
-  padding: 10px;
-  margin-top: 15px;
-  background: #4a6cf7;
-  border: none;
-  color: white;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    background: #4a6cf7;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .add-college-card button:hover {
-  background: #3a57d6;
+    background: #3a57d6;
 }
 
+/* Back Button */
 .back-btn {
-  background: transparent;
-  border: none;
-  color: #333;
-  font-size: 14px;
-  cursor: pointer;
-  margin-bottom: 10px;
+    width: auto !important;
+    padding: 8px 14px !important;
+    margin-bottom: 10px !important;
+    background: #4a6cf7 !important;
+    color: white !important;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 .back-btn:hover {
-  color: #007bff;
+    background: #3a57d6 !important;
 }

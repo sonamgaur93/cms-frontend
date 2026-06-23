@@ -5,38 +5,40 @@ import { useNavigate } from "react-router-dom";
 import { saveCollege } from "../../services/collegeService";
 
 function AddCollege() {
-  const navigate = useNavigate();
 
-  const [formData, setFormData] = useState({
-    collegeName: "",
-    code: "",
-    address: "",
-    city: "",
-    state: "",
-    pincode: "",
-    mobile: "",
-    email: ""
-  });
+    const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+    // State -> City Mapping
+    const stateCityMap = {
+        "Madhya Pradesh": [
+            "Bhopal",
+            "Indore",
+            "Jabalpur",
+            "Gwalior",
+            "Ujjain"
+        ],
+        Maharashtra: [
+            "Mumbai",
+            "Pune",
+            "Nagpur",
+            "Nashik"
+        ],
+        Rajasthan: [
+            "Jaipur",
+            "Jodhpur",
+            "Kota"
+        ],
+        Gujarat: [
+            "Ahmedabad",
+            "Surat",
+            "Vadodara"
+        ],
+        Delhi: [
+            "New Delhi"
+        ]
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await saveCollege(formData);
-
-      console.log("Save Response:", response.data);
-
-      alert("College saved successfully.");
-
-      // Clear the form
-      setFormData({
+    const [formData, setFormData] = useState({
         collegeName: "",
         code: "",
         address: "",
@@ -45,120 +47,215 @@ function AddCollege() {
         pincode: "",
         mobile: "",
         email: ""
-      });
+    });
 
-    } catch (error) {
-      console.error("Save Error:", error);
+    const handleChange = (e) => {
 
-      if (error.response) {
-        console.log("Status:", error.response.status);
-        console.log("Response:", error.response.data);
-      }
+        const { name, value } = e.target;
 
-      alert("Failed to save college.");
-    }
-  };
+        if (name === "state") {
 
-  return (
-    <div className="add-college-page">
-      <div className="add-college-card">
+            setFormData({
+                ...formData,
+                state: value,
+                city: "" // reset city when state changes
+            });
 
-        <button
-          className="back-btn"
-          onClick={() => navigate("/colleges")}
-        >
-          ← Back
-        </button>
+        } else {
 
-        <h2>Add College</h2>
+            setFormData({
+                ...formData,
+                [name]: value
+            });
 
-        <form onSubmit={handleSubmit}>
+        }
 
-          <div className="row">
+    };
 
-            <input
-              name="collegeName"
-              value={formData.collegeName}
-              placeholder="College Name"
-              onChange={handleChange}
-            />
+    const handleSubmit = async (e) => {
 
-            <input
-              name="code"
-              value={formData.code}
-              placeholder="Code"
-              onChange={handleChange}
-            />
+        e.preventDefault();
 
-          </div>
+        try {
 
-          <div className="row">
+            const response = await saveCollege(formData);
 
-            <input
-              name="address"
-              value={formData.address}
-              placeholder="Address"
-              onChange={handleChange}
-            />
+            console.log(response.data);
 
-          </div>
+            alert("College saved successfully.");
 
-          <div className="row">
+            setFormData({
+                collegeName: "",
+                code: "",
+                address: "",
+                city: "",
+                state: "",
+                pincode: "",
+                mobile: "",
+                email: ""
+            });
 
-            <input
-              name="city"
-              value={formData.city}
-              placeholder="City"
-              onChange={handleChange}
-            />
+        } catch (error) {
 
-            <input
-              name="state"
-              value={formData.state}
-              placeholder="State"
-              onChange={handleChange}
-            />
+            console.error(error);
 
-          </div>
+            alert("Failed to save college.");
 
-          <div className="row">
+        }
 
-            <input
-              name="pincode"
-              value={formData.pincode}
-              placeholder="Pincode"
-              onChange={handleChange}
-            />
+    };
 
-            <input
-              name="mobile"
-              value={formData.mobile}
-              placeholder="Mobile"
-              onChange={handleChange}
-            />
+    return (
 
-          </div>
+        <div className="add-college-page">
 
-          <div className="row">
+            <div className="add-college-card">
 
-            <input
-              name="email"
-              value={formData.email}
-              placeholder="Email"
-              onChange={handleChange}
-            />
+                <button
+                    className="back-btn"
+                    onClick={() => navigate("/colleges")}
+                >
+                    ← Back
+                </button>
 
-          </div>
+                <h2>Add College</h2>
 
-          <button type="submit">
-            Save College
-          </button>
+                <form onSubmit={handleSubmit}>
 
-        </form>
+                    <div className="row">
 
-      </div>
-    </div>
-  );
+                        <input
+                            type="text"
+                            name="collegeName"
+                            placeholder="College Name"
+                            value={formData.collegeName}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <input
+                            type="text"
+                            name="code"
+                            placeholder="Code"
+                            value={formData.code}
+                            onChange={handleChange}
+                            required
+                        />
+
+                    </div>
+
+                    <div className="row">
+
+                        <input
+                            type="text"
+                            name="address"
+                            placeholder="Address"
+                            value={formData.address}
+                            onChange={handleChange}
+                            required
+                        />
+
+                    </div>
+
+                    <div className="row">
+
+                        {/* State Dropdown */}
+
+                        <select
+                            name="state"
+                            value={formData.state}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select State</option>
+
+                            {Object.keys(stateCityMap).map((state) => (
+
+                                <option
+                                    key={state}
+                                    value={state}
+                                >
+                                    {state}
+                                </option>
+
+                            ))}
+
+                        </select>
+
+                        {/* City Dropdown */}
+
+                        <select
+                            name="city"
+                            value={formData.city}
+                            onChange={handleChange}
+                            required
+                            disabled={!formData.state}
+                        >
+                            <option value="">Select City</option>
+
+                            {formData.state &&
+                                stateCityMap[formData.state].map((city) => (
+
+                                    <option
+                                        key={city}
+                                        value={city}
+                                    >
+                                        {city}
+                                    </option>
+
+                                ))}
+
+                        </select>
+
+                    </div>
+
+                    <div className="row">
+
+                        <input
+                            type="text"
+                            name="pincode"
+                            placeholder="Pincode"
+                            value={formData.pincode}
+                            onChange={handleChange}
+                            required
+                        />
+
+                        <input
+                            type="text"
+                            name="mobile"
+                            placeholder="Mobile"
+                            value={formData.mobile}
+                            onChange={handleChange}
+                            required
+                        />
+
+                    </div>
+
+                    <div className="row">
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+
+                    </div>
+
+                    <button type="submit">
+                        Save College
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    );
+
 }
 
 export default AddCollege;
