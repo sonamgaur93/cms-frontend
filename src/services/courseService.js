@@ -32,3 +32,7 @@ export const updateCourse = (id, course) => {
 export const deleteCourse = (id) => {
     return api.delete(`/course/delete/${id}`);
 };
+
+export const getListOfCourseIdAndName = () =>{
+    return api.get("/course/get_id_and_name")
+}

@@ -42,3 +42,7 @@ export const deleteCollege = (id) => {
     return api.delete(`/college/delete/${id}`);
 
 };
+
+export const getListOfIdAndName = () =>{
+    return api.get("/college/get_id_and_name")
+}

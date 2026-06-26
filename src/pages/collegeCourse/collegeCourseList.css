@@ -1,0 +1,24 @@
+.college-page {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.college-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.college-search {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.pagination-area {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+}

@@ -15,6 +15,10 @@ import EditCourse from "../pages/course/EditCourse";
 
 import ProtectedRoute from "./ProtectedRoute";
 import Layout from "../components/Layout/Layout";
+import CollegeCourseList from "../pages/collegeCourse/collegeCourseList";
+import CollegeCourseDetail from "../pages/collegeCourse/collegeCourseDetail";
+import AddCollegeCourse from "../pages/collegeCourse/AddCollegeCourse";
+import EditCollegeCourse from "../pages/collegeCourse/EditCollegeCourse";
 
 function AppRoutes() {
   return (
@@ -55,74 +59,118 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
-        
+
         <Route
-    path="/colleges/edit/:id"
-    element={
-        <ProtectedRoute>
-            <Layout>
+          path="/colleges/edit/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
                 <EditCollege />
-            </Layout>
-        </ProtectedRoute>
-    }
-/>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
 
 
-      <Route
-         path="/colleges/view/:id"
-         element={
-        <ProtectedRoute>
-            <Layout>
+        <Route
+          path="/colleges/view/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
                 <CollegeDetail />
-            </Layout>
-        </ProtectedRoute>
-        }
-      />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
-      <Route
-    path="/courses"
-    element={
-        <ProtectedRoute>
-            <Layout>
+        <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <Layout>
                 <CourseList />
-            </Layout>
-        </ProtectedRoute>
-    }
-/>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-    path="/courses/add"
-    element={
-        <ProtectedRoute>
-            <Layout>
+        <Route
+          path="/courses/add"
+          element={
+            <ProtectedRoute>
+              <Layout>
                 <AddCourse />
-            </Layout>
-        </ProtectedRoute>
-    }
-/>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-    path="/courses/view/:id"
-    element={
-        <ProtectedRoute>
-            <Layout>
+        <Route
+          path="/courses/view/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
                 <CourseDetail />
-            </Layout>
-        </ProtectedRoute>
-    }
-/>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-    path="/courses/edit/:id"
-    element={
-        <ProtectedRoute>
-            <Layout>
+        <Route
+          path="/courses/edit/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
                 <EditCourse />
-            </Layout>
-        </ProtectedRoute>
-    }
-/>
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/college-courses"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <CollegeCourseList />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/college-courses/add"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <AddCollegeCourse />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/college-courses/edit/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <EditCollegeCourse />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/college-courses/view/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <CollegeCourseDetail />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
 
 
         <Route path="*" element={<h2>404 Page Not Found</h2>} />
