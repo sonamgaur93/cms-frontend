@@ -1,11 +1,8 @@
 import "./AddCourse.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-
-import {
-    getCourseById,
-    updateCourse
-} from "../../services/courseService";
+import { getCourseById, updateCourse } from "../../services/courseService";
+import Swal from "sweetalert2";
 
 function EditCourse() {
 
@@ -51,24 +48,34 @@ function EditCourse() {
 
     };
 
-    const handleSubmit = async (e) => {
 
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-
             await updateCourse(id, formData);
 
-            alert("Course updated successfully.");
+            await Swal.fire({
+                title: "Success!",
+                text: "Course updated successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK",
+            });
+
+            navigate("/courses")
 
         } catch (error) {
-
             console.error(error);
 
-            alert("Unable to update course.");
-
+            Swal.fire({
+                title: "Update Failed!",
+                text: "Unable to update course.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
         }
-
     };
 
     return (

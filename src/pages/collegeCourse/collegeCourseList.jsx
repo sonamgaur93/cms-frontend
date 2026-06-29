@@ -4,6 +4,7 @@ import { getAllCollegeCourses, deleteCollegeCourse } from "../../services/colleg
 import "./collegeCourseList.css";
 import { getListOfIdAndName } from "../../services/collegeService";
 import { getListOfCourseIdAndName } from "../../services/courseService";
+import Swal from "sweetalert2";
 
 function CollegeCourseList() {
     const navigate = useNavigate();
@@ -46,19 +47,37 @@ function CollegeCourseList() {
         }
     };
 
-    const handleDelete = async (id) => {
-        const confirmDelete = window.confirm(
-            "Are you sure you want to delete this collegeCourse?"
-        );
 
-        if (!confirmDelete) return;
+    const handleDelete = async (id) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Confirm ",
+        });
+
+        if (!result.isConfirmed) return;
+
         try {
             await deleteCollegeCourse(id);
-            alert("College Course deleted successfully.");
+
+            await Swal.fire({
+                title: "Deleted!",
+                text: "College Course has been deleted successfully.",
+                icon: "success",
+            });
+
             loadCollegeCourses();
         } catch (error) {
             console.error(error);
-            alert("Unable to delete college Course");
+
+            Swal.fire({
+                title: "Error!",
+                text: "Unable to delete College Course.",
+                icon: "error",
+            });
         }
     };
 

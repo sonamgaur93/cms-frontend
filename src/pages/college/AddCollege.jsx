@@ -1,8 +1,8 @@
 import "./AddCollege.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { saveCollege } from "../../services/collegeService";
+import Swal from "sweetalert2";
 
 function AddCollege() {
 
@@ -72,17 +72,23 @@ function AddCollege() {
 
     };
 
-    const handleSubmit = async (e) => {
 
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-
             const response = await saveCollege(formData);
-
             console.log(response.data);
 
-            alert("College saved successfully.");
+            await Swal.fire({
+                title: "Success!",
+                text: "College saved successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK",
+            });
+
+            navigate("/colleges");
 
             setFormData({
                 collegeName: "",
@@ -92,17 +98,20 @@ function AddCollege() {
                 state: "",
                 pincode: "",
                 mobile: "",
-                email: ""
+                email: "",
             });
 
         } catch (error) {
-
             console.error(error);
 
-            alert("Failed to save college.");
-
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to save college.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
         }
-
     };
 
     return (

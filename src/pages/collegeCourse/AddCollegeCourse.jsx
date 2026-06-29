@@ -6,6 +6,7 @@ import { getListOfIdAndName } from "../../services/collegeService";
 import { getListOfCourseIdAndName } from "../../services/courseService";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Swal from "sweetalert2";
 
 
 function AddCollegeCourse() {
@@ -61,6 +62,7 @@ function AddCollegeCourse() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const response = await saveCollegeCourse(
                 formData.collegeId,
@@ -69,16 +71,29 @@ function AddCollegeCourse() {
                     fees: formData.fees,
                     totalSeats: formData.totalSeats,
                     availableSeats: formData.availableSeats,
-                    startDate: formData.startDate
+                    startDate: formData.startDate,
                 }
             );
 
             console.log(response.data);
-            alert("College course saved successfully.");
+
+            await Swal.fire({
+                title: "Success!",
+                text: "College course saved successfully.",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+
             navigate("/college-courses");
         } catch (error) {
             console.error(error);
-            alert("Failed to save college course");
+
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to save college course.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
         }
     };
 
@@ -139,7 +154,7 @@ function AddCollegeCourse() {
                             ))}
                         </select>
                     </div>
-                    
+
                     <div className="row">
                         <input
                             type="text"

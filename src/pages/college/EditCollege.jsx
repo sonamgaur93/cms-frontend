@@ -1,6 +1,7 @@
 import "./AddCollege.css";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 import {
     getCollegeById,
@@ -63,24 +64,34 @@ function EditCollege() {
 
     };
 
-    const handleSubmit = async (e) => {
 
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-
             await updateCollege(id, formData);
 
-            alert("College updated successfully.");
+            await Swal.fire({
+                title: "Success!",
+                text: "College updated successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK",
+            });
+
+            navigate("/colleges");
 
         } catch (error) {
-
             console.error(error);
 
-            alert("Unable to update college.");
-
+            Swal.fire({
+                title: "Update Failed!",
+                text: "Unable to update college.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
         }
-
     };
 
     return (

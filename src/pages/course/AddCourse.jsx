@@ -1,8 +1,8 @@
 import "./AddCourse.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { saveCourse } from "../../services/courseService";
+import Swal from "sweetalert2";
 
 function AddCourse() {
 
@@ -14,7 +14,6 @@ function AddCourse() {
     });
 
     const handleChange = (e) => {
-
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -22,29 +21,39 @@ function AddCourse() {
 
     };
 
-    const handleSubmit = async (e) => {
 
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-
             await saveCourse(formData);
 
-            alert("Course saved successfully.");
+            await Swal.fire({
+                title: "Success!",
+                text: "Course saved successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK",
+            });
+
+            navigate("/courses");
 
             setFormData({
                 courseName: "",
-                duration: ""
+                duration: "",
             });
 
         } catch (error) {
-
             console.error(error);
 
-            alert("Failed to save course.");
-
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to save course.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
         }
-
     };
 
     return (

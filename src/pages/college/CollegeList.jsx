@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import {
-    getAllColleges,
-    deleteCollege
-} from "../../services/collegeService";
-
+import Swal from "sweetalert2";
+import { getAllColleges, deleteCollege } from "../../services/collegeService";
 import "./CollegeList.css";
 
 function CollegeList() {
@@ -60,30 +56,41 @@ function CollegeList() {
     };
 
     const handleDelete = async (id) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Confirm",
+            cancelButtonText: "Cancel",
+        });
 
-    const confirmDelete = window.confirm(
-        "Are you sure you want to delete this college?"
-    );
+        if (!result.isConfirmed) return;
 
-    if (!confirmDelete) return;
+        try {
+            await deleteCollege(id);
 
-    try {
+            await Swal.fire({
+                title: "Deleted!",
+                text: "College deleted successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+            });
 
-        await deleteCollege(id);
+            loadColleges();
 
-        alert("College deleted successfully.");
+        } catch (error) {
+            console.error(error);
 
-        loadColleges();
-
-    } catch (error) {
-
-        console.error(error);
-
-        alert("Unable to delete college.");
-
-    }
-
-};
+            Swal.fire({
+                title: "Error!",
+                text: "Unable to delete college.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+            });
+        }
+    };
 
     return (
 
@@ -215,23 +222,23 @@ function CollegeList() {
                                         </button>
 
                                         <button
-    className="btn btn-danger btn-sm"
-    onClick={() => {
+                                            className="btn btn-danger btn-sm"
+                                            onClick={() => {
 
-        if (college.id) {
+                                                if (college.id) {
 
-            handleDelete(college.id);
+                                                    handleDelete(college.id);
 
-        } else {
+                                                } else {
 
-            alert("Backend is not returning id.");
+                                                    alert("Backend is not returning id.");
 
-        }
+                                                }
 
-    }}
->
-    Delete
-</button>
+                                            }}
+                                        >
+                                            Delete
+                                        </button>
 
                                     </td>
 

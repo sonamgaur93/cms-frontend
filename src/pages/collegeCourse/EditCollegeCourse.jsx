@@ -6,6 +6,7 @@ import { getListOfIdAndName } from "../../services/collegeService";
 import { getListOfCourseIdAndName } from "../../services/courseService";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Swal from "sweetalert2";
 
 
 function EditCollegeCourse() {
@@ -135,14 +136,29 @@ function EditCollegeCourse() {
 
         try {
             const { collegeId, courseId, ...collegeCourse } = formData;
+
             await updateCollegeCourse(id, collegeCourse, collegeId, courseId);
 
-            alert("College course updated successfully.");
+            await Swal.fire({
+                title: "Success!",
+                text: "College course updated successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "OK",
+            });
+
             navigate("/college-courses");
 
         } catch (error) {
             console.error(error);
-            alert("Unable to update college course");
+
+            Swal.fire({
+                title: "Update Failed!",
+                text: "Unable to update college course.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+                confirmButtonText: "OK",
+            });
         }
     };
 

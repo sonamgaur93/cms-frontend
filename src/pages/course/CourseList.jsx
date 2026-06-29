@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import {
-    getAllCourses,
-    deleteCourse
-} from "../../services/courseService";
+import { getAllCourses, deleteCourse } from "../../services/courseService";
+import Swal from "sweetalert2";
 
 import "./CourseList.css";
 
@@ -54,30 +51,42 @@ function CourseList() {
 
     };
 
+
     const handleDelete = async (id) => {
+        const result = await Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Confirm",
+            cancelButtonText: "Cancel",
+        });
 
-        const confirmDelete = window.confirm(
-            "Are you sure you want to delete this course?"
-        );
-
-        if (!confirmDelete) return;
+        if (!result.isConfirmed) return;
 
         try {
-
             await deleteCourse(id);
 
-            alert("Course deleted successfully.");
+            await Swal.fire({
+                title: "Deleted!",
+                text: "Course deleted successfully.",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+            });
 
             loadCourses();
 
         } catch (error) {
-
             console.error(error);
 
-            alert("Unable to delete course.");
-
+            Swal.fire({
+                title: "Error!",
+                text: "Unable to delete course.",
+                icon: "error",
+                confirmButtonColor: "#d33",
+            });
         }
-
     };
 
     return (
@@ -99,42 +108,42 @@ function CourseList() {
 
             {/* Search */}
 
-{/* Search */}
+            {/* Search */}
 
-{/* Search */}
+            {/* Search */}
 
-<div className="course-search mb-3 d-flex">
+            <div className="course-search mb-3 d-flex">
 
-    <input
-        type="text"
-        className="form-control me-2"
-        placeholder="Search Course"
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-    />
+                <input
+                    type="text"
+                    className="form-control me-2"
+                    placeholder="Search Course"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                />
 
-    <button
-        className="btn btn-primary me-2"
-        onClick={() => {
-            setSearch(searchText);
-            setPage(0);
-        }}
-    >
-        Search
-    </button>
+                <button
+                    className="btn btn-primary me-2"
+                    onClick={() => {
+                        setSearch(searchText);
+                        setPage(0);
+                    }}
+                >
+                    Search
+                </button>
 
-    <button
-        className="btn btn-secondary"
-        onClick={() => {
-            setSearch("");
-            setSearchText("");
-            setPage(0);
-        }}
-    >
-        Reset
-    </button>
+                <button
+                    className="btn btn-secondary"
+                    onClick={() => {
+                        setSearch("");
+                        setSearchText("");
+                        setPage(0);
+                    }}
+                >
+                    Reset
+                </button>
 
-</div>
+            </div>
 
             <table className="table table-bordered table-hover">
 
