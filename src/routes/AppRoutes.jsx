@@ -19,6 +19,8 @@ import CollegeCourseList from "../pages/collegeCourse/collegeCourseList";
 import CollegeCourseDetail from "../pages/collegeCourse/collegeCourseDetail";
 import AddCollegeCourse from "../pages/collegeCourse/AddCollegeCourse";
 import EditCollegeCourse from "../pages/collegeCourse/EditCollegeCourse";
+import EnquiryList from "../pages/Enquiry/EnquiryList";
+import EnquiryDetail from "../pages/Enquiry/EnquiryDetail";
 
 function AppRoutes() {
   return (
@@ -167,6 +169,50 @@ function AppRoutes() {
             <ProtectedRoute>
               <Layout>
                 <CollegeCourseDetail />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/enquiries"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <EnquiryList />
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/enquiries/add"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                {/* <AddCollegeCourse /> */}
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/enquiries/edit/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                {/* <EditCollegeCourse /> */}
+              </Layout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/enquiries/view/:id"
+          element={
+            <ProtectedRoute>
+              <Layout>
+                <EnquiryDetail/>
               </Layout>
             </ProtectedRoute>
           }
