@@ -95,79 +95,94 @@ function CollegeCourseList() {
 
             </div>
 
-            {/* Search */}
-
-            <div className="college-search mb-3 d-flex ">
-                <input
-                    type="text"
-                    className="form-control me-2"
-                    style={{ width: "auto" }}
-                    placeholder="Search College-Course"
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                />
-
-                <button
-                    className="btn btn-primary me-2"
-                    onClick={() => {
-                        setSearch(searchText);
-                        setPage(0);
-                    }}
-                >
-                    Search
-                </button>
-
-                <button
-                    className="btn btn-secondary"
-                    onClick={() => {
-                        setSearchText("");
-                        setSearch("");
-                        setPage(0);
-                    }}
-                >
-                    Reset
-                </button>
 
 
-                <select
-                    className="form-control"
-                    style={{ marginLeft: "300px", width: "300px" }}
-                    value={selectedCollegeId}
-                    onChange={(e) => {
-                        const value = e.target.value;
-                        setSelectedCollegeId(value);
-                        loadCollegeCourses(value, selectedCourseId, 0); // reset page if needed
-                        setPage(0);
-                    }}
-                >
-                    <option value="">Select College</option>
-                    {college.map((c) => (
-                        <option key={c.id} value={c.id}>
-                            {c.name}
-                        </option>
-                    ))}
-                </select>
+ {/* Search Section */}
 
-                <select
-                    className="form-control"
-                    style={{ marginLeft: "200px", width: "300px" }}
-                    value={selectedCourseId}
-                    onChange={(e) => {
-                        const value = e.target.value;
-                        setSelectedCourseId(value);
-                        loadCollegeCourses(selectedCollegeId, value, 0);
-                        setPage(0);
-                    }}
-                >
-                    <option value="">Select Course</option>
-                    {course.map((c) => (
-                        <option key={c.id} value={c.id}>
-                            {c.name}
-                        </option>
-                    ))}
-                </select>
+<div className="search-row">
 
-            </div>
+    {/* Search */}
+    <div className="search-item">
+        <input
+            type="text"
+            className="form-control"
+            placeholder="Search College-Course"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+        />
+    </div>
+
+    {/* Search Button */}
+    <button
+        className="btn btn-primary search-btn"
+        onClick={() => {
+            setSearch(searchText);
+            setPage(0);
+        }}
+    >
+        Search
+    </button>
+
+    {/* Reset Button */}
+    <button
+        className="btn btn-secondary search-btn"
+        onClick={() => {
+            setSearch("");
+            setSearchText("");
+            setSelectedCollegeId("");
+            setSelectedCourseId("");
+            setPage(0);
+            loadCollegeCourses("", "");
+        }}
+    >
+        Reset
+    </button>
+
+    {/* College */}
+    <div className="search-item">
+        <select
+            className="form-select"
+            value={selectedCollegeId}
+            onChange={(e) => {
+                const value = e.target.value;
+                setSelectedCollegeId(value);
+                setPage(0);
+                loadCollegeCourses(value, selectedCourseId);
+            }}
+        >
+            <option value="">Select College</option>
+
+            {college.map((c) => (
+                <option key={c.id} value={c.id}>
+                    {c.name}
+                </option>
+            ))}
+        </select>
+    </div>
+
+    {/* Course */}
+    <div className="search-item">
+        <select
+            className="form-select"
+            value={selectedCourseId}
+            onChange={(e) => {
+                const value = e.target.value;
+                setSelectedCourseId(value);
+                setPage(0);
+                loadCollegeCourses(selectedCollegeId, value);
+            }}
+        >
+            <option value="">Select Course</option>
+
+            {course.map((c) => (
+                <option key={c.id} value={c.id}>
+                    {c.name}
+                </option>
+            ))}
+        </select>
+    </div>
+
+</div>
 
             <table className="table table-bordered table-hover">
                 <thead className="table-success">

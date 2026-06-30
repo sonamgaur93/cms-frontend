@@ -1,24 +1,23 @@
-.college-page {
-    background: white;
-    padding: 25px;
-    border-radius: 8px;
-}
-
-.college-header {
+.search-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 12px;
     margin-bottom: 25px;
+    width: 100%;
 }
 
-.college-search {
-    width: 300px;
-    margin-bottom: 20px;
+.search-item {
+    flex: 1;
 }
 
-.pagination-area {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    align-items: center;
+.search-item input,
+.search-item select {
+    width: 100%;
+    height: 46px;
+}
+
+.search-btn {
+    width: 100px;
+    height: 46px;
+    flex-shrink: 0;
 }
